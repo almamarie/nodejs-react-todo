@@ -1,0 +1,33 @@
+{
+  "name": "react-todo-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/almamarie/nodejs-react-todo.git"
+  },
+  "keywords": [
+    "react",
+    "todo"
+  ],
+  "author": "Louis Marie Atoluko Ayariga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/almamarie/nodejs-react-todo/issues"
+  },
+  "homepage": "https://github.com/almamarie/nodejs-react-todo#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
