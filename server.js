@@ -5,6 +5,7 @@ const { IndexRouter } = require("./src/routes/index.router");
 const sequelize = require("./src/databases/sequelize");
 const User = require("./src/models/user");
 const Todo = require("./src/models/todo");
+const logger = require("./src/utils/logger");
 
 // const V0MODELS = require("./src/models/modules.index");
 
@@ -40,10 +41,10 @@ const Todo = require("./src/models/todo");
       // });
     })
     .then((result) => {
-      console.log(`SQL connect result: ${result}`);
+      // console.log(`SQL connect result: ${result}`);
       app.listen(PORT, () => {
-        console.log(`server running at port: ${PORT}`);
-        console.log("Press CTRL + C to stop server");
+        logger.info(`server running at port: ${PORT}`);
+        logger.info("Press CTRL + C to stop server");
       });
     });
 })();
