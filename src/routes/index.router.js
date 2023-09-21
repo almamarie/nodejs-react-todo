@@ -1,6 +1,6 @@
 const express = require("express");
 const UserRouter = require("./user");
-
+const AuthRouter = require("./auth");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -8,5 +8,6 @@ router.get("/", (req, res) => {
 });
 
 router.use("/user", UserRouter);
+router.use("/auth", AuthRouter);
 
 exports.IndexRouter = router;

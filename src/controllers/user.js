@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const logger = require("../utils/logger");
-const passwordFunctions = require("../utils/passwordFunctions");
+const passwordFunctions = require("../utils/auth");
 
 exports.postCreateUser = async (req, res, next) => {
   logger.info("Create new user called...");

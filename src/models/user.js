@@ -31,4 +31,13 @@ const User = sequelize.define("user", {
   },
 });
 
+User.prototype.format = function () {
+  return {
+    userId: this.userId,
+    firstName: this.firstName,
+    lastName: this.lastName,
+    email: this.email,
+  };
+};
+
 module.exports = User;
