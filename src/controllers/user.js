@@ -69,6 +69,37 @@ exports.postUpdateUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Error creating user.");
+    return res.status(400).send("Error updating user.");
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const user = await User.findByPk(userId);
+
+    if (!user) throw new Error();
+
+    return res.status(200).send({
+      userId: user.userId,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    });
+  } catch (error) {
+    return res.status(400).send("User not found.");
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    if (!user) throw new Error();
+    await user.destroy();
+    return res.status(200).send("User deleted.");
+  } catch (error) {
+    res.status(400).send("An error occured");
   }
 };
