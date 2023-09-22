@@ -1,19 +1,15 @@
 const Todo = require("../models/todo");
+const User = require("../models/user");
 const logger = require("../utils/logger");
 
 exports.postCreateTodo = async (req, res, next) => {
   logger.info("Create new todo called...");
 
   try {
-    const identicalTodos = await Todo.findAll({
-      where: { title: req.body.title },
-    });
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
 
-    console.log("Identical todos: ", identicalTodos);
-    if (identicalTodos.length > 1) throw new Error("Todo may already exists");
-
-    console.log(req.body);
-    const response = await Todo.create({ ...req.body });
+    const response = await user.createTodo({ ...req.body });
 
     return res.status(201).send(response);
   } catch (error) {
@@ -44,24 +40,24 @@ exports.postUpdateTodo = async (req, res) => {
   }
 };
 
-// exports.getUser = async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
+exports.getTodos = async (req, res) => {
+  try {
+    const userId = req.params.userId;
 
-//     const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId);
+    if (!user) throw new Error();
 
-//     if (!user) throw new Error();
+    // console.log(user.__proto__);
 
-//     return res.status(200).send({
-//       userId: user.userId,
-//       firstName: user.firstName,
-//       lastName: user.lastName,
-//       email: user.email,
-//     });
-//   } catch (error) {
-//     return res.status(400).send("User not found.");
-//   }
-// };
+    const todos = await user.getTodos();
+    console.log("Todos: ", todos);
+    const formatedTodos = todos.map((todo) => todo.format());
+    return res.status(200).send(formatedTodos);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("Failed to get all todos.");
+  }
+};
 
 // exports.deleteUser = async (req, res) => {
 //   try {
