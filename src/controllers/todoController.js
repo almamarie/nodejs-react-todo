@@ -22,36 +22,27 @@ exports.postCreateTodo = async (req, res, next) => {
   }
 };
 
-// exports.postUpdateUser = async (req, res) => {
-//   logger.info("Update user called...");
+exports.postUpdateTodo = async (req, res) => {
+  logger.info("Update todo called...");
 
-//   try {
-//     const userId = req.params.userId;
-//     const user = await User.findByPk(userId);
-//     if (!user) {
-//       throw new Error("User may not exist");
-//     }
+  try {
+    const todoId = req.params.todoId;
+    const todo = await Todo.findByPk(todoId);
+    if (!todo) {
+      throw new Error("Todo may not exist");
+    }
 
-//     await user.update({
-//       firstName: req.body.firstName,
-//       lastName: req.body.lastName,
-//       email: req.body.email,
-//     });
+    const response = await todo.update({ ...todo, ...req.body });
 
-//     await user.save();
+    // console.log("response: ", response);
+    // await user.save();
 
-//     return res.status(201).send({
-//       userId: user.userId,
-//       firstName: user.firstName,
-//       lastName: user.lastName,
-//       email: user.email,
-//       updatedAt: user.updatedAt,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(400).send("Error updating user.");
-//   }
-// };
+    return res.status(201).send(todo.format());
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("Error updating todo.");
+  }
+};
 
 // exports.getUser = async (req, res) => {
 //   try {

@@ -35,6 +35,7 @@ Todo.prototype.format = function () {
     userId: this.userId,
     title: this.title,
     details: this.details,
+    deadline: this.deadline,
     completed: this.completed,
   };
 };
