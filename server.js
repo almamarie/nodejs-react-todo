@@ -41,6 +41,7 @@ const logger = require("./src/utils/logger");
       // });
     })
     .then((result) => {
+      console.log(new Date().toISOString());
       // console.log(`SQL connect result: ${result}`);
       app.listen(PORT, () => {
         logger.info(`server running at port: ${PORT}`);

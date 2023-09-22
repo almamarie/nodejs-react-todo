@@ -1,4 +1,4 @@
-const { INTEGER, STRING, BOOLEAN, DATE, NOW } = require("sequelize");
+const { INTEGER, STRING, BOOLEAN, DATE } = require("sequelize");
 const sequelize = require("../databases/sequelize");
 
 const Todo = sequelize.define("todo", {
@@ -11,6 +11,7 @@ const Todo = sequelize.define("todo", {
   title: {
     type: STRING,
     allowNull: false,
+    unique: true,
   },
   details: {
     type: STRING,
@@ -27,5 +28,15 @@ const Todo = sequelize.define("todo", {
     allowNull: false,
   },
 });
+
+Todo.prototype.format = function () {
+  return {
+    todoId: this.todoId,
+    userId: this.userId,
+    title: this.title,
+    details: this.details,
+    completed: this.completed,
+  };
+};
 
 module.exports = Todo;
