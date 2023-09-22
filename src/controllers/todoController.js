@@ -59,14 +59,19 @@ exports.getTodos = async (req, res) => {
   }
 };
 
-// exports.deleteUser = async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     const user = await User.findByPk(userId);
-//     if (!user) throw new Error();
-//     await user.destroy();
-//     return res.status(200).send("User deleted.");
-//   } catch (error) {
-//     res.status(400).send("An error occured");
-//   }
-// };
+exports.deleteTodo = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const user = await User.findByPk(userId);
+    const todo = await user.getTodos({ where: { todoId: req.body.todoId } });
+    console.log(todo);
+    await todo[0].destroy();
+    const todos = await user.getTodos();
+    const formatedTodos = todos.map((todo) => todo.format());
+    return res.status(200).send(formatedTodos);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("An error occured");
+  }
+};
