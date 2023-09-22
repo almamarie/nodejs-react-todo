@@ -75,3 +75,18 @@ exports.deleteTodo = async (req, res) => {
     res.status(400).send("An error occured");
   }
 };
+
+exports.getCompleteTodo = async (req, res) => {
+  try {
+    const { todoId } = req.params;
+
+    const todo = await Todo.findByPk(todoId);
+    if (!todo) throw new Error("Todo not found");
+    todo.update({ ...todo.format(), completed: req.body.completed });
+
+    return res.status(200).send({ ...todo.format() });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Failed to update todo");
+  }
+};
