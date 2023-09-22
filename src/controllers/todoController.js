@@ -11,10 +11,12 @@ exports.postCreateTodo = async (req, res, next) => {
 
     const response = await user.createTodo({ ...req.body });
 
-    return res.status(201).send(response);
+    return res.status(201).send({ success: true, body: response });
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Error creating todo.");
+    return res
+      .status(400)
+      .send({ success: false, body: "Error creating todo." });
   }
 };
 
@@ -30,13 +32,12 @@ exports.postUpdateTodo = async (req, res) => {
 
     const response = await todo.update({ ...todo, ...req.body });
 
-    // console.log("response: ", response);
-    // await user.save();
-
-    return res.status(201).send(todo.format());
+    return res.status(201).send({ success: true, body: todo.format() });
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Error updating todo.");
+    return res
+      .status(400)
+      .send({ success: false, body: "Error updating todo." });
   }
 };
 
@@ -52,10 +53,12 @@ exports.getTodos = async (req, res) => {
     const todos = await user.getTodos();
     console.log("Todos: ", todos);
     const formatedTodos = todos.map((todo) => todo.format());
-    return res.status(200).send(formatedTodos);
+    return res.status(200).send({ success: true, body: formatedTodos });
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Failed to get all todos.");
+    return res
+      .status(400)
+      .send({ success: false, body: "Failed to get all todos." });
   }
 };
 
@@ -69,10 +72,10 @@ exports.deleteTodo = async (req, res) => {
     await todo[0].destroy();
     const todos = await user.getTodos();
     const formatedTodos = todos.map((todo) => todo.format());
-    return res.status(200).send(formatedTodos);
+    return res.status(200).send({ success: true, body: formatedTodos });
   } catch (error) {
     console.log(error);
-    res.status(400).send("An error occured");
+    res.status(400).send({ success: false, body: "An error occured" });
   }
 };
 
@@ -84,9 +87,9 @@ exports.getCompleteTodo = async (req, res) => {
     if (!todo) throw new Error("Todo not found");
     todo.update({ ...todo.format(), completed: req.body.completed });
 
-    return res.status(200).send({ ...todo.format() });
+    return res.status(200).send({ success: true, body: { ...todo.format() } });
   } catch (error) {
     console.log(error);
-    res.status(400).send("Failed to update todo");
+    res.status(400).send({ success: false, body: "Failed to update todo" });
   }
 };

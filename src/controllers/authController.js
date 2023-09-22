@@ -26,9 +26,9 @@ exports.signIn = async (req, res) => {
 
     const resData = { user: userData, token };
 
-    return res.status(200).send(resData);
+    return res.status(200).send({ success: true, body: resData });
   } catch (error) {
     console.log(error);
-    res.status(400).send("Unauthorized");
+    res.status(401).send({ success: false, body: "Unauthorised" });
   }
 };

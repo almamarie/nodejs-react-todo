@@ -30,15 +30,20 @@ exports.postCreateUser = async (req, res, next) => {
     const response = await User.create(userData);
 
     return res.status(201).send({
-      userId: response.userId,
-      firstName: response.firstName,
-      lastName: response.lastName,
-      email: response.email,
-      createdAt: response.createdAt,
+      success: true,
+      body: {
+        userId: response.userId,
+        firstName: response.firstName,
+        lastName: response.lastName,
+        email: response.email,
+        createdAt: response.createdAt,
+      },
     });
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Error creating user.");
+    return res
+      .status(400)
+      .send({ success: false, body: "Error creating user." });
   }
 };
 
@@ -61,15 +66,20 @@ exports.postUpdateUser = async (req, res) => {
     await user.save();
 
     return res.status(201).send({
-      userId: user.userId,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      updatedAt: user.updatedAt,
+      success: true,
+      body: {
+        userId: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        updatedAt: user.updatedAt,
+      },
     });
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Error updating user.");
+    return res
+      .status(400)
+      .send({ success: false, body: "Error updating user." });
   }
 };
 
@@ -82,13 +92,16 @@ exports.getUser = async (req, res) => {
     if (!user) throw new Error();
 
     return res.status(200).send({
-      userId: user.userId,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
+      success: true,
+      body: {
+        userId: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
     });
   } catch (error) {
-    return res.status(400).send("User not found.");
+    return res.status(400).send({ success: false, body: "User not found." });
   }
 };
 
@@ -98,8 +111,8 @@ exports.deleteUser = async (req, res) => {
     const user = await User.findByPk(userId);
     if (!user) throw new Error();
     await user.destroy();
-    return res.status(200).send("User deleted.");
+    return res.status(200).send({ success: true, body: "User deleted." });
   } catch (error) {
-    res.status(400).send("An error occured");
+    res.status(400).send({ success: false, body: "An error occured" });
   }
 };

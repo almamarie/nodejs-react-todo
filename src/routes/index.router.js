@@ -5,7 +5,7 @@ const TodoRouter = require("./todo.router");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.status(200).send("Root router reached");
+  res.status(200).send({ success: true, body: "Root router reached" });
 });
 
 router.use("/user", UserRouter);
