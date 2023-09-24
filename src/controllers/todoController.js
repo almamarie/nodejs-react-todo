@@ -52,12 +52,10 @@ exports.getTodos = async (req, res) => {
 
     const formatedTodos = todos.map((todo) => todo.format());
 
-    return res
-      .status(200)
-      .send({
-        success: true,
-        body: { total: formatedTodos.length, data: formatedTodos },
-      });
+    return res.status(200).send({
+      success: true,
+      body: { total: formatedTodos.length, data: formatedTodos },
+    });
   } catch (error) {
     console.log(error);
     return res
@@ -76,7 +74,10 @@ exports.deleteTodo = async (req, res) => {
     await todo[0].destroy();
     const todos = await user.getTodos();
     const formatedTodos = todos.map((todo) => todo.format());
-    return res.status(200).send({ success: true, body: formatedTodos });
+    return res.status(200).send({
+      success: true,
+      body: { total: formatedTodos.length, data: formatedTodos },
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send({ success: false, body: "An error occured" });

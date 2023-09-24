@@ -267,3 +267,71 @@ The API will return the following error types when requests fail:
   }
 }
 ```
+
+### DELETE "/todo/:todoId"
+
+- The route is used to delete a todo.
+- Token must be included in the authorization header
+- request parameter: must include the id of the user
+- Request body:
+
+```json
+{
+  "todoId": 11
+}
+```
+
+- Response: The endpoint a list of todos:
+
+```json
+{
+  "success": true,
+  "body": {
+    "total": 2,
+    "data": [
+      {
+        "todoId": 1,
+        "title": "create budget for rewind",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2024-08-30T12:00:00.000Z",
+        "completed": false
+      },
+      {
+        "todoId": 2,
+        "title": "Remove the stocks from the movie",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2023-09-30T12:00:00.000Z",
+        "completed": false
+      }
+    ]
+  }
+}
+```
+
+### POST 'todo/:todoId/complete'
+
+- The route is used to **toggle** the complete state of a todo.
+- Token must be included in the authorization header
+- request parameter: must include the id of the todo
+- Request body:
+
+```json
+{
+  "completed": true // true or false
+}
+```
+
+- Response: The endpoint returns data in the following format:
+
+```json
+{
+  "success": true,
+  "body": {
+    "todoId": 1,
+    "title": "create budget for rewind",
+    "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+    "deadline": "2024-08-30T12:00:00.000Z",
+    "completed": true
+  }
+}
+```
