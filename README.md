@@ -193,11 +193,14 @@ The API will return the following error types when requests fail:
 {
   "success": true,
   "body": {
-    "userId": 3,
-    "firstName": "louis marie",
-    "lastName": "Ayariga",
-    "email": "eahalouis@gmail.com",
-    "updatedAt": "2023-09-21T22:58:36.000Z"
+    "todoId": 1,
+    "title": "Remove the stocks from the movie",
+    "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+    "deadline": "2023-09-30T12:00:00.000Z",
+    "completed": false,
+    "userUserId": 1,
+    "updatedAt": "2023-09-24T15:37:55.628Z",
+    "createdAt": "2023-09-24T15:37:55.628Z"
   }
 }
 ```

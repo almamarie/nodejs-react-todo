@@ -28,18 +28,12 @@ exports.requireAuth = async (req, res, next) => {
     if (tokenBearer.length !== 2)
       return res.status(401).send({ message: "Malformed token." });
 
-    const token = tokenBearer[0];
-    return jwt.verify(token, config.jwt.secret, (decode, err) => {
-      if (err) {
-        return res
-          .status(500)
-          .send({ auth: false, message: "Failed to authenticate." });
-      }
-
-      logger.info("User verified...");
-
-      return next();
-    });
+    const token = tokenBearer[1];
+    console.log("Token: ", token);
+    const jwtResponse = jwt.verify(token, config.jwt.secret);
+    logger.info(jwtResponse);
+    logger.info("User Verified");
+    return next();
   } catch (error) {
     logger.error("Unauthorised user!");
     return res.status(401).send("Unauthorised user");
