@@ -11,7 +11,6 @@ const Todo = sequelize.define("todo", {
   title: {
     type: STRING,
     allowNull: false,
-    unique: true,
   },
   details: {
     type: STRING,

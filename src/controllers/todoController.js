@@ -8,7 +8,6 @@ exports.postCreateTodo = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findByPk(userId);
-
     const response = await user.createTodo({ ...req.body });
 
     return res.status(201).send({ success: true, body: response });

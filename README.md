@@ -21,7 +21,13 @@ clone this github repository using:
 npm install
 ```
 
-> _tip_: `npm i` is shorthand for `npm install``
+> _tip_: `npm i` is shorthand for `npm install`
+
+4. **Start server**
+
+```bash
+npm run dev
+```
 
 Base URL: At present this app can only be run locally and is not hosted as a base URL. The backend app is hosted at the default, [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
@@ -51,8 +57,6 @@ The API will return the following error types when requests fail:
 
 400: Bad Request
 401: unauthorised
-404: Resource Not Found
-405: Method Not Allowed
 500: Server Error
 
 ## Endpoints
@@ -61,19 +65,12 @@ The API will return the following error types when requests fail:
 
 ### GET '/'
 
-The route is used to check if the system is properly configured
-
-#### Request Arguments: None
-
-Returns: A hard coded object with 2 keys, success, and message.
-success is either True or False
-message always containg the string "successfully configured system"
-
-category_string key:value pairs.
-
-#### Response format
-
-The enpoint returns data in the following format:
+- The route is used to check if the system is properly configured
+- Request Arguments: None
+- Returns: A hard coded object with 2 keys, success, and message.
+- success is either True or False
+- message always containg the string "successfully configured system"
+- Response: The endpoint returns data in the following format:
 
 ```json
 {
@@ -82,89 +79,125 @@ The enpoint returns data in the following format:
 }
 ```
 
-### GET '/all-hrs-situations'
+### POST '/auth/signin'
 
-Fetches a list of new and archived human rights situations
-
-#### Request Arguments: None
-
-Returns: An object with 3 keys, success, newSituations, and archive.
-success is either True or False
-newSituations and Archive both constain an object with the following structure:
-
-#### The endpoint expects form-data in the following format
+- The route is used to sign in
+- Request body:
 
 ```json
 {
-  "files": {},
-  "data": {
-    "anonimity": "false",
-    "specialMechanism": "Indigenous Populations/Communities And Minorities",
-    "identityOfReporter": "Victim",
-    "numberOfVictims": "6",
-    "nameOfVictim": "Akua Zuri"
-  }
+  "email": "example97@email.com",
+  "password": "12345678"
 }
 ```
 
-category_string key:value pairs.
-
-#### Response format
-
-The endpoint returns data in the following format:
-
-#### If the report is by the Victim
+- Response: The endpoint returns data in the following format:
 
 ```json
 {
   "success": true,
-  "ageOfVictim": 25,
-  "anonimity": true
+  "body": {
+    "user": {
+      "userId": 100,
+      "firstName": "first_name",
+      "lastName": "last_name",
+      "email": "example97@email.com"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJmaXJzdE5hbWUiOiJBdG9sdWtvIiwibGFzdE5hbWUiOiJBeWFyaWdhIiwiZW1haWwiOiJhbG91aXNtYXJpZWE5N0BnbWFpbC5jb20iLCJpYXQiOjE2OTU0MTczNzl9.UED1hHyrLNOZMs7nOHxAmVYXVw9_okGENyvwEAexWtQ"
+  }
 }
 ```
 
-#### If the application is by a state
+### PATCH '/user/:userId/update'
+
+- The route is used to update a user's details.
+- request parameter: must include the id of the user
+- Request body: an object containing the data to update. must include one or more fields.
 
 ```json
 {
-  "anonimity": "false",
-  "specialMechanism": "Indigenous Populations/Communities And Minorities",
-  "identityOfReporter": "State Actor",
-  "nameOfStateSubmittingForm": "Algeria",
-  "nameOfPersonSubmittingForm": "Kolima Nduga",
-  "addressOfPersonSubmittingForm": "Azibiri Street, House 11",
-  "emailOfPersonSubmittingForm": "knduga@gmail.com"
+  "firstName": "louis marie",
+  "lastName": "Ayariga",
+  "email": "eahalouis@gmail.com"
 }
 ```
 
-#### If by representative of victim
+- Response: The endpoint returns data in the following format:
 
 ```json
 {
-  "anonimity": "false",
-  "specialMechanism": "Indigenous Populations/Communities And Minorities",
-  "identityOfReporter": "Representative Of Victim",
-  "nameOfRepresentativeOfVictim": "Louis ",
-  "addressOfRepresentativeOfVictim": "Azibiri Street, House 11",
-  "emailOfRepresentativeOfVictim": "lorepre@gmail.com",
-  "phoneNumberOfRepresentativeOfVictim": "23344556332",
-  "numberOfVictims": "6",
-  "nameOfVictim": "Akua Zuri",
-  "sexOfVictim": "male"
+  "success": true,
+  "body": {
+    "userId": 3,
+    "firstName": "louis marie",
+    "lastName": "Ayariga",
+    "email": "eahalouis@gmail.com",
+    "updatedAt": "2023-09-21T22:58:36.000Z"
+  }
 }
 ```
 
-#### If by a Witness
+### GET '/user/:userId'
+
+- The route is used to get a user's details.
+- Params: must include the id of the user
+- Token must be included in the authorization header
+- Response: The endpoint returns data in the following format:
 
 ```json
 {
-  "anonimity": "false",
-  "specialMechanism": "Indigenous Populations/Communities And Minorities",
-  "identityOfReporter": "Witness",
-  "nameOfWitness": "Louis",
-  "addressOfWitness": "Azibiri Street, House 11",
-  "emailOfWitness": "email@example.com",
-  "phoneNumberOfWitness": "220383632",
-  "numberOfVictims": "6"
+  "success": true,
+  "body": {
+    "userId": 3,
+    "firstName": "louis marie",
+    "lastName": "Ayariga",
+    "email": "eahalouis@gmail.com"
+  }
+}
+```
+
+### DELETE "/user/:userId"
+
+- The route is used to delete a user.
+- Token must be included in the authorization header
+- request parameter: must include the id of the user
+- Response: The endpoint returns data in the following format:
+
+```json
+{
+  "success": true,
+  "body": "User deleted."
+}
+```
+
+### POST '/todo/:userId/new'
+
+- The route is used to add a new todo for a user.
+- Token must be included in the authorization header
+- request parameter: must include the id of the user
+- Request body:
+
+```json
+{
+  "userId": 3,
+  "title": "Remove the stocks from the movie",
+  "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+  "deadline": "2023-09-30 12:00:00",
+  "completed": false
+}
+```
+
+- Response: The endpoint returns data in the following format:
+
+```json
+{
+  "success": true,
+  "body": {
+    "userId": 3,
+    "firstName": "louis marie",
+    "lastName": "Ayariga",
+    "email": "eahalouis@gmail.com",
+    "updatedAt": "2023-09-21T22:58:36.000Z"
+  }
 }
 ```
