@@ -204,3 +204,66 @@ The API will return the following error types when requests fail:
   }
 }
 ```
+
+### PATCH '/todo/:todoId/update'
+
+- The route is used to patch a todo.
+- Token must be included in the authorization header
+- request parameter: must include the id of the todo
+- Request body:
+
+```json
+{
+  "title": "create budget for rewind",
+  "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+  "deadline": "2024-08-30 12:00:00",
+  "completed": false
+}
+```
+
+- Response: The endpoint returns data in the following format:
+
+```json
+{
+  "success": true,
+  "body": {
+    "todoId": 1,
+    "title": "create budget for rewind",
+    "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+    "deadline": "2024-08-30T12:00:00.000Z",
+    "completed": false
+  }
+}
+```
+
+### GET '/todo/:userId/'
+
+- The route is used to get all todos for a user.
+- Token must be included in the authorization header
+- request parameter: must include the id of the user
+- Response: The endpoint returns data in the following format:
+
+```json
+{
+  "success": true,
+  "body": {
+    "total": 2,
+    "data": [
+      {
+        "todoId": 1,
+        "title": "create budget for rewind",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2024-08-30T12:00:00.000Z",
+        "completed": false
+      },
+      {
+        "todoId": 2,
+        "title": "Remove the stocks from the movie",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2023-09-30T12:00:00.000Z",
+        "completed": false
+      }
+    ]
+  }
+}
+```

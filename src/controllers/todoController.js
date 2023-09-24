@@ -47,12 +47,17 @@ exports.getTodos = async (req, res) => {
     const user = await User.findByPk(userId);
     if (!user) throw new Error();
 
-    // console.log(user.__proto__);
-
     const todos = await user.getTodos();
     console.log("Todos: ", todos);
+
     const formatedTodos = todos.map((todo) => todo.format());
-    return res.status(200).send({ success: true, body: formatedTodos });
+
+    return res
+      .status(200)
+      .send({
+        success: true,
+        body: { total: formatedTodos.length, data: formatedTodos },
+      });
   } catch (error) {
     console.log(error);
     return res
