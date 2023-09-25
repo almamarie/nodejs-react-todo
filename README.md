@@ -7,9 +7,8 @@ This is a nodejs backend for a todo app. This projects allows users to create an
 clone this github repository using:
 
 1. **Clone project**
-
-- ssh: <<git@github.com>:almamarie/nodejs-react-todo.git>
-- http: <https://github.com/almamarie/nodejs-react-todo.git>
+   ssh: <<git@github.com>:almamarie/nodejs-react-todo.git>
+   http: <https://github.com/almamarie/nodejs-react-todo.git>
 
 2. **Installing Node and NPM**
    This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (the download includes NPM) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
@@ -21,9 +20,8 @@ clone this github repository using:
 npm install
 ```
 
-> _tip_: `npm i` is shorthand for `npm install`
-
 4. **Start server**
+   To start the server, open your terminal and run:
 
 ```bash
 npm run dev
