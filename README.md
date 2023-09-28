@@ -266,19 +266,12 @@ The API will return the following error types when requests fail:
 }
 ```
 
-### DELETE "/todo/:todoId"
+### DELETE "/todo/:userId/:todoId/"
 
 - The route is used to delete a todo.
 - Token must be included in the authorization header
 - request parameter: must include the id of the user
-- Request body:
-
-```json
-{
-  "todoId": 11
-}
-```
-
+- Request body: None
 - Response: The endpoint a list of todos:
 
 ```json

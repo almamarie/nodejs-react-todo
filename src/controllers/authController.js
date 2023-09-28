@@ -4,6 +4,7 @@ const logger = require("../utils/logger");
 
 exports.signIn = async (req, res) => {
   try {
+    console.log(req.body);
     logger.info("Signing user in...");
     const { email, password } = req.body;
 

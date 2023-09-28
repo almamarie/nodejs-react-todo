@@ -48,7 +48,7 @@ exports.getTodos = async (req, res) => {
     if (!user) throw new Error();
 
     const todos = await user.getTodos();
-    console.log("Todos: ", todos);
+    // console.log("Todos: ", todos);
 
     const formatedTodos = todos.map((todo) => todo.format());
 
@@ -67,9 +67,9 @@ exports.getTodos = async (req, res) => {
 exports.deleteTodo = async (req, res) => {
   try {
     const userId = req.params.userId;
-
+    const todoId = req.params.todoId;
     const user = await User.findByPk(userId);
-    const todo = await user.getTodos({ where: { todoId: req.body.todoId } });
+    const todo = await user.getTodos({ where: { todoId } });
     console.log(todo);
     await todo[0].destroy();
     const todos = await user.getTodos();
