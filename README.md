@@ -212,7 +212,7 @@ The API will return the following error types when requests fail:
 }
 ```
 
-### PATCH '/todo/:todoId/update'
+### PATCH '/todo/:userId/:todoId/update'
 
 - The route is used to patch a todo.
 - Token must be included in the authorization header
@@ -234,11 +234,23 @@ The API will return the following error types when requests fail:
 {
   "success": true,
   "body": {
-    "todoId": 1,
-    "title": "create budget for rewind",
-    "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
-    "deadline": "2024-08-30T12:00:00.000Z",
-    "completed": false
+    "total": 2,
+    "data": [
+      {
+        "todoId": 1,
+        "title": "create budget for rewind",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2024-08-30T12:00:00.000Z",
+        "completed": false
+      },
+      {
+        "todoId": 2,
+        "title": "Remove the stocks from the movie",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2023-09-30T12:00:00.000Z",
+        "completed": false
+      }
+    ]
   }
 }
 ```
@@ -308,7 +320,7 @@ The API will return the following error types when requests fail:
 }
 ```
 
-### POST 'todo/:todoId/complete'
+### POST 'todo/:userId/:todoId/complete'
 
 - The route is used to **toggle** the complete state of a todo.
 - Token must be included in the authorization header
@@ -327,11 +339,23 @@ The API will return the following error types when requests fail:
 {
   "success": true,
   "body": {
-    "todoId": 1,
-    "title": "create budget for rewind",
-    "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
-    "deadline": "2024-08-30T12:00:00.000Z",
-    "completed": true
+    "total": 2,
+    "data": [
+      {
+        "todoId": 1,
+        "title": "create budget for rewind",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2024-08-30T12:00:00.000Z",
+        "completed": false
+      },
+      {
+        "todoId": 2,
+        "title": "Remove the stocks from the movie",
+        "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates sit ipsum veritatis vel ratione ea esse nam eum. Rem distinctio fugit veniam praesentium minima possimus odio consequatur blanditiis veritatis?",
+        "deadline": "2023-09-30T12:00:00.000Z",
+        "completed": false
+      }
+    ]
   }
 }
 ```

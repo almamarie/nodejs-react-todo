@@ -11,6 +11,10 @@ router.patch(
 );
 router.get("/:userId", requireAuth, todoController.getTodos);
 router.delete("/:userId/:todoId", requireAuth, todoController.deleteTodo);
-router.patch("/:todoId/complete", requireAuth, todoController.getCompleteTodo);
+router.patch(
+  "/:userId/:todoId/complete",
+  requireAuth,
+  todoController.getCompleteTodo
+);
 
 module.exports = router;

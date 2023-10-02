@@ -115,14 +115,35 @@ exports.deleteTodo = async (req, res) => {
 };
 
 exports.getCompleteTodo = async (req, res) => {
+  logger.info("Complete todo called........................");
   try {
-    const { todoId } = req.params;
+    const userId = req.params.userId;
+    const todoId = req.params.todoId;
+    const user = await User.findByPk(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const todoList = await user.getTodos({
+      where: { todoId },
+    });
 
-    const todo = await Todo.findByPk(todoId);
-    if (!todo) throw new Error("Todo not found");
-    todo.update({ ...todo.format(), completed: req.body.completed });
+    const todo = todoList[0];
 
-    return res.status(200).send({ success: true, body: { ...todo.format() } });
+    if (!todo) {
+      throw new Error("Todo may not exist");
+    }
+    const updatedTodo = await todo.update({
+      ...todo,
+      completed: req.body.completed,
+    });
+    console.log("Updated todo: ", req.body);
+    const todos = await user.getTodos();
+    console.log("success");
+    const formatedTodos = todos.map((todo) => todo.format());
+    return res.status(200).send({
+      success: true,
+      body: { total: formatedTodos.length, data: formatedTodos },
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send({ success: false, body: "Failed to update todo" });
