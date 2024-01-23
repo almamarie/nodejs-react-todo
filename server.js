@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const { IndexRouter } = require("./src/routes/index.router");
 const sequelize = require("./src/databases/sequelize");
@@ -13,6 +14,7 @@ const logger = require("./src/utils/logger");
   const app = express();
   const PORT = process.env.PORT || 8080;
   app.use(bodyParser.json());
+  app.use(helmet());
   // sequelize.addModels(V0MODELS);
 
   app.use((req, res, next) => {
