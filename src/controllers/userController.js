@@ -10,8 +10,8 @@ exports.postCreateUser = async (req, res, next) => {
       where: { email: req.body.email },
     });
 
-    console.log("Identical users: ", identicalUser);
-    if (identicalUser.length > 1) throw new Error("User may already exists");
+    // console.log("Identical users: ", identicalUser);
+    if (identicalUser.length > 0) throw new Error("User may already exist.");
 
     if (req.body.password.length < 8)
       throw new Error("provided password is not strong");
@@ -40,10 +40,15 @@ exports.postCreateUser = async (req, res, next) => {
       },
     });
   } catch (error) {
-    console.log(error);
-    return res
-      .status(400)
-      .send({ success: false, body: "Error creating user." });
+    // console.log("Error: ", error.message);
+    return res.status(400).send({
+      success: false,
+      body: `${
+        error.message === "User may already exist."
+          ? "User may already exist."
+          : "Error creating user."
+      }`,
+    });
   }
 };
 
