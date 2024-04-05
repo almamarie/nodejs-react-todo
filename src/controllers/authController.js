@@ -33,3 +33,7 @@ exports.signIn = async (req, res) => {
     res.status(401).send({ success: false, body: "Unauthorised" });
   }
 };
+
+exports.verifyAuth = async (req, res) => {
+  res.status(200).send({ success: true, body: "user verified" });
+};

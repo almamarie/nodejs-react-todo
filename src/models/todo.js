@@ -1,4 +1,4 @@
-const { INTEGER, STRING, BOOLEAN, DATE } = require("sequelize");
+const { INTEGER, STRING, BOOLEAN, DATE, TEXT } = require("sequelize");
 const sequelize = require("../databases/sequelize");
 
 const Todo = sequelize.define("todo", {
@@ -13,7 +13,7 @@ const Todo = sequelize.define("todo", {
     allowNull: false,
   },
   details: {
-    type: STRING,
+    type: TEXT,
     allowNull: false,
   },
 

@@ -31,10 +31,13 @@ const logger = require("./src/utils/logger");
 
   User.hasMany(Todo);
 
-  sequelize.sync().then(() => {
-    app.listen(PORT, () => {
-      logger.info(`server running at port: ${PORT}`);
-      logger.info("Press CTRL + C to stop server");
+  sequelize
+    .sync()
+    // .sync({ force: true })
+    .then(() => {
+      app.listen(PORT, () => {
+        logger.info(`server running at port: ${PORT}`);
+        logger.info("Press CTRL + C to stop server");
+      });
     });
-  });
 })();
